@@ -1,0 +1,37 @@
+two sum题
+解答存在问题，当输入为下面内容时：
+nums : [3,4,2]    target=6
+
+unordered_map<int,int> mapping;
+有 
+i=0;
+gap=target-nums[0]=3
+mapping.find(gap)存在
+mappping[gap]=0;
+i=0;
+
+最后输出为[0,0]
+
+全部代码如下：注释行 为改动行
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int i;
+        vector<int> re;
+        unordered_map<int,int> mapping;
+        int gap=0;
+    
+        for(i=0; i<nums.size(); i++)
+            mapping[nums[i]]=i;
+        
+        for(i=0; i<nums.size(); i++){
+            gap = target - nums[i];
+            if( mapping.find(gap) != mapping.end() && mapping[gap]!=i){ // 多了一个判定条件，即找到的值不能为nums[i]本身  即3+3=6的情况
+                re.push_back(i);
+                re.push_back(mapping[gap]);
+                return re;
+            }
+        }
+    }
+};
